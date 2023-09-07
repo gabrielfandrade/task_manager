@@ -1,6 +1,7 @@
 const express = require('express');
 const taskController = require('../controllers/taskController');
 const validateToken = require('../middlewares/validateToken');
+const validateTask = require('../middlewares/validateTask');
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ router.get('/status/:status', taskController.getTaskByStatus);
 router.get('/', taskController.getAllTasks);
 router.get('/:id', taskController.getTaskById);
 
-router.post('/', taskController.createTask);
+router.post('/', validateTask, taskController.createTask);
 
 router.put('/:id', validateToken, taskController.updateTask);
 
