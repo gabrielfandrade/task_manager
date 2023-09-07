@@ -44,10 +44,20 @@ const getByStatus = async (status) => {
     return result;
 }
 
+const update = async (id, task) => {
+    const [{ affectedRows }] = await connection.execute(
+        'UPDATE TaskManager.tasks SET title = ?, description = ?, status = ? WHERE id = ?',
+        [task.title, task.description, task.status, id],
+    );
+
+    return affectedRows;
+}
+
 module.exports = {
     create,
     getAll,
     getById,
     getByTitle,
     getByStatus,
+    update,
 };
