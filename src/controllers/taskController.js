@@ -1,9 +1,10 @@
+const { request, response } = require('../app');
 const taskService = require('../services/taskService');
 
-const insert = async (request, response) => {
+const create = async (request, response) => {
     const { title, description } = request.body;
 
-    const task = await taskService.insert({ title, description, status: 'pendente' });
+    const task = await taskService.create({ title, description, status: 'pendente' });
 
     if (task) {
         return response.status(201).json(task);
@@ -12,6 +13,16 @@ const insert = async (request, response) => {
     return response.status(422).json({ message: 'Erro ao cadastrar uma tarefa' });
 }
 
+const getAll = async (_request, response) => {
+    const tasks = await taskService.getAll();
+
+    if (tasks)
+        return response.status(200).json(tasks);
+
+    return response.status(404).json({ message: 'Tarefas não encontradas' })
+}
+
 module.exports = {
-    insert,
+    create,
+    getAll,
 }

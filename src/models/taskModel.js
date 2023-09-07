@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const insert = async (task) => {
+const create = async (task) => {
     const [{ insertId }] = await connection.execute(
         'INSERT INTO TaskManager.tasks (title, description, status) VALUE (?, ?, ?)',
         [task.title, task.description, task.status],
@@ -9,6 +9,25 @@ const insert = async (task) => {
     return insertId;
 }
 
+const getAll = async () => {
+    const [result] = await connection.execute(
+        'SELECT * FROM TaskManager.tasks',
+    );
+
+    return result;
+}
+
+const getById = async (id) => {
+    const [[result]] = await connection.execute(
+        'SELECT * FROM TaskManager.tasks WHERE id = (?)',
+        [id],
+    )
+
+    return result;
+}
+
 module.exports = {
-    insert,
+    create,
+    getAll,
+    getById,
 };
