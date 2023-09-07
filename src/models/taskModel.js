@@ -21,7 +21,25 @@ const getById = async (id) => {
     const [[result]] = await connection.execute(
         'SELECT * FROM TaskManager.tasks WHERE id = ?',
         [id],
-    )
+    );
+
+    return result;
+}
+
+const getByTitle = async (title) => {
+    const [result] = await connection.execute(
+        'SELECT * FROM TaskManager.tasks WHERE title LIKE ?',
+        [`%${title}%`],
+    );
+
+    return result;
+}
+
+const getByStatus = async (status) => {
+    const [result] = await connection.execute(
+        'SELECT * FROM TaskManager.tasks WHERE status = ?',
+        [status],
+    );
 
     return result;
 }
@@ -30,4 +48,6 @@ module.exports = {
     create,
     getAll,
     getById,
+    getByTitle,
+    getByStatus,
 };
