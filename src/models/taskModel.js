@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const create = async (task) => {
+const createTask = async (task) => {
     const [{ insertId }] = await connection.execute(
         'INSERT INTO TaskManager.tasks (title, description, status) VALUE (?, ?, ?)',
         [task.title, task.description, task.status],
@@ -9,7 +9,7 @@ const create = async (task) => {
     return insertId;
 }
 
-const getAll = async () => {
+const getAllTasks = async () => {
     const [result] = await connection.execute(
         'SELECT * FROM TaskManager.tasks',
     );
@@ -17,7 +17,7 @@ const getAll = async () => {
     return result;
 }
 
-const getById = async (id) => {
+const getTaskById = async (id) => {
     const [[result]] = await connection.execute(
         'SELECT * FROM TaskManager.tasks WHERE id = ?',
         [id],
@@ -26,7 +26,7 @@ const getById = async (id) => {
     return result;
 }
 
-const getByTitle = async (title) => {
+const getTaskByTitle = async (title) => {
     const [result] = await connection.execute(
         'SELECT * FROM TaskManager.tasks WHERE title LIKE ?',
         [`%${title}%`],
@@ -35,7 +35,7 @@ const getByTitle = async (title) => {
     return result;
 }
 
-const getByStatus = async (status) => {
+const getTaskByStatus = async (status) => {
     const [result] = await connection.execute(
         'SELECT * FROM TaskManager.tasks WHERE status = ?',
         [status],
@@ -44,7 +44,7 @@ const getByStatus = async (status) => {
     return result;
 }
 
-const update = async (id, task) => {
+const updateTask = async (id, task) => {
     const [{ affectedRows }] = await connection.execute(
         'UPDATE TaskManager.tasks SET title = ?, description = ?, status = ? WHERE id = ?',
         [task.title, task.description, task.status, id],
@@ -53,11 +53,21 @@ const update = async (id, task) => {
     return affectedRows;
 }
 
+const deleteTask = async (id) => {
+    const [result] = await connection.execute(
+        'DELETE FROM TaskManager.tasks WHERE id = ?',
+        [id],
+    )
+
+    return result;
+}
+
 module.exports = {
-    create,
-    getAll,
-    getById,
-    getByTitle,
-    getByStatus,
-    update,
+    createTask,
+    getAllTasks,
+    getTaskById,
+    getTaskByTitle,
+    getTaskByStatus,
+    updateTask,
+    deleteTask,
 };

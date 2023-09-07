@@ -2,10 +2,10 @@ const { request, response } = require('../app');
 const taskService = require('../services/taskService');
 const Status = require('../utils/Status');
 
-const create = async (request, response) => {
+const createTask = async (request, response) => {
     const { title, description } = request.body;
 
-    const task = await taskService.create({ title, description, status: 'pendente' });
+    const task = await taskService.createTask({ title, description, status: 'pendente' });
 
     if (task)
         return response.status(201).json(task);
@@ -13,8 +13,8 @@ const create = async (request, response) => {
     return response.status(422).json({ message: 'Erro ao cadastrar uma tarefa' });
 }
 
-const getAll = async (_request, response) => {
-    const tasks = await taskService.getAll();
+const getAllTasks = async (_request, response) => {
+    const tasks = await taskService.getAllTasks();
 
     if (tasks)
         return response.status(200).json(tasks);
@@ -22,10 +22,10 @@ const getAll = async (_request, response) => {
     return response.status(404).json({ message: 'Tarefas não encontradas' })
 }
 
-const getById = async (request, response) => {
+const getTaskById = async (request, response) => {
     const { id } = request.params;
 
-    const task = await taskService.getById(id);
+    const task = await taskService.getTaskById(id);
 
     if (task)
         return response.status(200).json(task);
@@ -33,10 +33,10 @@ const getById = async (request, response) => {
     return response.status(404).json({ message: 'Tarefa não encontrada' })
 }
 
-const getByTitle = async (request, response) => {
+const getTaskByTitle = async (request, response) => {
     const { title } = request.params;
 
-    const tasks = await taskService.getByTitle(title);
+    const tasks = await taskService.getTaskByTitle(title);
 
     if (tasks)
         return response.status(200).json(tasks);
@@ -44,10 +44,10 @@ const getByTitle = async (request, response) => {
     return response.status(404).json({ message: 'Tarefas não encontradas' })
 }
 
-const getByStatus = async (request, response) => {
+const getTaskByStatus = async (request, response) => {
     const { status } = request.params;
 
-    const tasks = await taskService.getByStatus(Status[status]);
+    const tasks = await taskService.getTaskByStatus(Status[status]);
 
     if (tasks)
         return response.status(200).json(tasks);
@@ -55,12 +55,12 @@ const getByStatus = async (request, response) => {
     return response.status(404).json({ message: 'Tarefas não encontradas' })
 }
 
-const update = async (request, response) => {
+const updateTask = async (request, response) => {
     const { id } = request.params;
 
     const { title, description, status } = request.body;
 
-    const task = await taskService.update(id, { title, description, status });
+    const task = await taskService.updateTask(id, { title, description, status });
 
     if (task)
         return response.status(200).json(task);
@@ -68,11 +68,20 @@ const update = async (request, response) => {
     return response.status(404).json({ message: 'Tarefa não encontrada' })
 }
 
+const deleteTask = async (request, response) => {
+    const { id } = request.params;
+
+    await taskService.deleteTask(id);
+
+    return response.status(204).send();
+}
+
 module.exports = {
-    create,
-    getAll,
-    getById,
-    getByTitle,
-    getByStatus,
-    update,
+    createTask,
+    getAllTasks,
+    getTaskById,
+    getTaskByTitle,
+    getTaskByStatus,
+    updateTask,
+    deleteTask,
 }
