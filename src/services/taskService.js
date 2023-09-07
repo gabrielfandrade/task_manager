@@ -49,7 +49,7 @@ const updateTask = async (id, task) => {
         }
     }
 
-    return null;
+    return;
 }
 
 const deleteTask = async (id) => {
@@ -58,7 +58,7 @@ const deleteTask = async (id) => {
     if (taskFromDB) {
         await taskModel.deleteTask(id);
 
-        return;
+        return { message: 'Tarefa excluida' };
     }
 
     return;

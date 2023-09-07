@@ -5,6 +5,9 @@ const validateToken = async (request, response, next) => {
 
     const validate = await authenticateToken(authorization);
 
+    if (validate.message)
+        return response.status(401).json(validate)
+
     request.locals = validate;
 
     return next();

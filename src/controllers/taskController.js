@@ -71,9 +71,12 @@ const updateTask = async (request, response) => {
 const deleteTask = async (request, response) => {
     const { id } = request.params;
 
-    await taskService.deleteTask(id);
+    const result = await taskService.deleteTask(id);
 
-    return response.status(204).send();
+    if (result)
+        return response.status(202).json(result);
+
+    return response.status(404).json({ message: 'Tarefa não encontrada' })
 }
 
 module.exports = {

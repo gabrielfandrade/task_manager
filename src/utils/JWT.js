@@ -13,11 +13,14 @@ const generateToken = ({ id, title, description, status}) => {
 }
 
 const authenticateToken = (token) => {
+    if (!token)
+        return { message: 'Token não encontrado' };
+
     try {
         const validate = jwt.verify(token, TOKEN_SECRET_KEY)
         return validate;
     } catch (error) {
-        return null;
+        return { message: 'Token expirado ou invalido' };
     }
 }
 
