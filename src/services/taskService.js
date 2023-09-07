@@ -1,4 +1,5 @@
-const { status } = require('express/lib/response');
+const { generateToken } = require('../utils/JWT');
+
 const taskModel = require('../models/taskModel');
 
 const createTask = async (name) => {
@@ -6,7 +7,9 @@ const createTask = async (name) => {
 
     const task = await taskModel.getTaskById(insertId);
 
-    return task;
+    const token = generateToken(task);
+
+    return token;
 }
 
 const getAllTasks = async () => {
@@ -46,7 +49,7 @@ const updateTask = async (id, task) => {
         }
     }
 
-    return null;
+    return;
 }
 
 const deleteTask = async (id) => {
@@ -55,7 +58,7 @@ const deleteTask = async (id) => {
     if (taskFromDB) {
         await taskModel.deleteTask(id);
 
-        return;
+        return { message: 'Tarefa excluida' };
     }
 
     return;

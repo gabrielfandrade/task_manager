@@ -46,8 +46,8 @@ const getTaskByStatus = async (status) => {
 
 const updateTask = async (id, task) => {
     const [{ affectedRows }] = await connection.execute(
-        'UPDATE TaskManager.tasks SET title = ?, description = ?, status = ? WHERE id = ?',
-        [task.title, task.description, task.status, id],
+        'UPDATE TaskManager.tasks SET description = ?, status = ? WHERE id = ?',
+        [task.description, task.status, id],
     );
 
     return affectedRows;

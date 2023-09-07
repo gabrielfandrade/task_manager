@@ -5,10 +5,10 @@ const Status = require('../utils/Status');
 const createTask = async (request, response) => {
     const { title, description } = request.body;
 
-    const task = await taskService.createTask({ title, description, status: 'pendente' });
+    const token = await taskService.createTask({ title, description, status: 'pendente' });
 
-    if (task)
-        return response.status(201).json(task);
+    if (token)
+        return response.status(201).json(token);
 
     return response.status(422).json({ message: 'Erro ao cadastrar uma tarefa' });
 }
@@ -58,9 +58,9 @@ const getTaskByStatus = async (request, response) => {
 const updateTask = async (request, response) => {
     const { id } = request.params;
 
-    const { title, description, status } = request.body;
+    const { description, status } = request.body;
 
-    const task = await taskService.updateTask(id, { title, description, status });
+    const task = await taskService.updateTask(id, { description, status });
 
     if (task)
         return response.status(200).json(task);
@@ -71,9 +71,12 @@ const updateTask = async (request, response) => {
 const deleteTask = async (request, response) => {
     const { id } = request.params;
 
-    await taskService.deleteTask(id);
+    const result = await taskService.deleteTask(id);
 
-    return response.status(204).send();
+    if (result)
+        return response.status(202).json(result);
+
+    return response.status(404).json({ message: 'Tarefa não encontrada' })
 }
 
 module.exports = {
