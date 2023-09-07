@@ -5,10 +5,10 @@ const Status = require('../utils/Status');
 const createTask = async (request, response) => {
     const { title, description } = request.body;
 
-    const task = await taskService.createTask({ title, description, status: 'pendente' });
+    const token = await taskService.createTask({ title, description, status: 'pendente' });
 
-    if (task)
-        return response.status(201).json(task);
+    if (token)
+        return response.status(201).json(token);
 
     return response.status(422).json({ message: 'Erro ao cadastrar uma tarefa' });
 }

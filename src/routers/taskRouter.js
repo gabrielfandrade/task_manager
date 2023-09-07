@@ -1,5 +1,6 @@
 const express = require('express');
 const taskController = require('../controllers/taskController');
+const validateToken = require('../middlewares/validateToken');
 
 const router = express.Router();
 
@@ -10,8 +11,8 @@ router.get('/:id', taskController.getTaskById);
 
 router.post('/', taskController.createTask);
 
-router.put('/:id', taskController.updateTask);
+router.put('/:id', validateToken, taskController.updateTask);
 
-router.delete('/:id', taskController.deleteTask);
+router.delete('/:id', validateToken, taskController.deleteTask);
 
 module.exports = router;
