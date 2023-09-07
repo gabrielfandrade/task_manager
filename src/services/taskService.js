@@ -1,46 +1,46 @@
 const { status } = require('express/lib/response');
 const taskModel = require('../models/taskModel');
 
-const create = async (name) => {
-    const insertId = await taskModel.create(name);
+const createTask = async (name) => {
+    const insertId = await taskModel.createTask(name);
 
-    const task = await taskModel.getById(insertId);
-
-    return task;
-}
-
-const getAll = async () => {
-    const tasks = await taskModel.getAll();
-
-    return tasks;
-}
-
-const getById = async (id) => {
-    const task = await taskModel.getById(id);
+    const task = await taskModel.getTaskById(insertId);
 
     return task;
 }
 
-const getByTitle = async (title) => {
-    const tasks = await taskModel.getByTitle(title);
+const getAllTasks = async () => {
+    const tasks = await taskModel.getAllTasks();
 
     return tasks;
 }
 
-const getByStatus = async (status) => {
-    const tasks = await taskModel.getByStatus(status);
+const getTaskById = async (id) => {
+    const task = await taskModel.getTaskById(id);
+
+    return task;
+}
+
+const getTaskByTitle = async (title) => {
+    const tasks = await taskModel.getTaskByTitle(title);
 
     return tasks;
 }
 
-const update = async (id, task) => {
-    const taskFromDB = await taskModel.getById(id);
+const getTaskByStatus = async (status) => {
+    const tasks = await taskModel.getTaskByStatus(status);
+
+    return tasks;
+}
+
+const updateTask = async (id, task) => {
+    const taskFromDB = await taskModel.getTaskById(id);
 
     if (taskFromDB) {
-        const affectedRows = await taskModel.update(id, task);
+        const affectedRows = await taskModel.updateTask(id, task);
 
         if (affectedRows === 1) {
-            const updatedTask = await taskModel.getById(id);
+            const updatedTask = await taskModel.getTaskById(id);
 
             return updatedTask;
         }
@@ -49,11 +49,24 @@ const update = async (id, task) => {
     return null;
 }
 
+const deleteTask = async (id) => {
+    const taskFromDB = await taskModel.getTaskById(id);
+
+    if (taskFromDB) {
+        await taskModel.deleteTask(id);
+
+        return;
+    }
+
+    return;
+}
+
 module.exports = {
-    create,
-    getAll,
-    getById,
-    getByTitle,
-    getByStatus,
-    update,
+    createTask,
+    getAllTasks,
+    getTaskById,
+    getTaskByTitle,
+    getTaskByStatus,
+    updateTask,
+    deleteTask,
 }
