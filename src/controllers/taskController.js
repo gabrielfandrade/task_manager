@@ -58,9 +58,9 @@ const getTaskByStatus = async (request, response) => {
 const updateTask = async (request, response) => {
     const { id } = request.params;
 
-    const { title, description, status } = request.body;
+    const { description, status } = request.body;
 
-    const task = await taskService.updateTask(id, { title, description, status });
+    const task = await taskService.updateTask(id, { description, status });
 
     if (task)
         return response.status(200).json(task);
