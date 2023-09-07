@@ -22,7 +22,19 @@ const getAll = async (_request, response) => {
     return response.status(404).json({ message: 'Tarefas não encontradas' })
 }
 
+const getById = async (request, response) => {
+    const { id } = request.params;
+
+    const task = await taskService.getById(id);
+
+    if (task)
+        return response.status(200).json(task);
+
+    return response.status(404).json({ message: 'Tarefa não encontrada' })
+}
+
 module.exports = {
     create,
     getAll,
+    getById,
 }

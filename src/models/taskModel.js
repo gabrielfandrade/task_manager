@@ -19,7 +19,7 @@ const getAll = async () => {
 
 const getById = async (id) => {
     const [[result]] = await connection.execute(
-        'SELECT * FROM TaskManager.tasks WHERE id = (?)',
+        'SELECT * FROM TaskManager.tasks WHERE id = ?',
         [id],
     )
 
