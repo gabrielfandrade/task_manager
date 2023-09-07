@@ -55,10 +55,24 @@ const getByStatus = async (request, response) => {
     return response.status(404).json({ message: 'Tarefas não encontradas' })
 }
 
+const update = async (request, response) => {
+    const { id } = request.params;
+
+    const { title, description, status } = request.body;
+
+    const task = await taskService.update(id, { title, description, status });
+
+    if (task)
+        return response.status(200).json(task);
+
+    return response.status(404).json({ message: 'Tarefa não encontrada' })
+}
+
 module.exports = {
     create,
     getAll,
     getById,
     getByTitle,
     getByStatus,
+    update,
 }

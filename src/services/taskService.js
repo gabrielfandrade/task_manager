@@ -33,10 +33,27 @@ const getByStatus = async (status) => {
     return tasks;
 }
 
+const update = async (id, task) => {
+    const taskFromDB = await taskModel.getById(id);
+
+    if (taskFromDB) {
+        const affectedRows = await taskModel.update(id, task);
+
+        if (affectedRows === 1) {
+            const updatedTask = await taskModel.getById(id);
+
+            return updatedTask;
+        }
+    }
+
+    return null;
+}
+
 module.exports = {
     create,
     getAll,
     getById,
     getByTitle,
     getByStatus,
+    update,
 }
