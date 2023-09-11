@@ -43,7 +43,7 @@ npm start
 
 |Método |Funcionalidade                                                                    |URL                                           |
 |:-----:|:-----------------------------------------------------------------------------------:|:--------------------------------------------:|
-|`POST` |Efeuta um login e retorna um `JWT` necessario para atualização e exclusão de tarefas |http://localhost:3000/login                   |
+|`POST` |Efetua um login e retorna um `JWT` necessario para atualização e exclusão de tarefas |http://localhost:3000/login                   |
 
 
 Na requisição `POST` é necessário informar um JSON no seguinte formato:
