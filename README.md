@@ -23,6 +23,8 @@ Instalar dependências:
 npm install
 ```
 
+O script `taskmanager.sql` encontrado na pasta raiz do projeto é necessario para criação do Banco de Dados e das Tabelas.
+
 E para iniciar o projeto:
 
 ```
@@ -36,6 +38,22 @@ npm start
 * [MySQL](https://dev.mysql.com/doc/)
 
 ## Endpoints da API:
+
+#### Login
+
+|Método |Funcionalidade                                                                    |URL                                           |
+|:-----:|:-----------------------------------------------------------------------------------:|:--------------------------------------------:|
+|`POST` |Efeuta um login e retorna um `JWT` necessario para atualização e exclusão de tarefas |http://localhost:3000/login                   |
+
+
+Na requisição `POST` é necessário informar um JSON no seguinte formato:
+
+```
+{
+  "email": "email@email.com",
+  "password": "senha123",
+}
+```
 
 #### Listagem de tarefas
 
@@ -52,7 +70,7 @@ npm start
 
 |Método |Funcionalidade                                                                    |URL                                           |
 |:-----:|:--------------------------------------------------------------------------------:|:--------------------------------------------:|
-|`POST` |Cadastra uma nova tarefa e retorna um `JWT` necessario para atualização e exclusão|http://localhost:3000/task                    |
+|`POST` |Cadastra uma nova tarefa e retorna a mesma                                        |http://localhost:3000/task                    |
 
 
 Na requisição `POST` é necessário informar um JSON no seguinte formato:
