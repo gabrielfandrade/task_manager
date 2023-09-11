@@ -25,6 +25,8 @@ npm install
 
 O script `taskmanager.sql` encontrado na pasta raiz do projeto é necessario para criação do Banco de Dados e das Tabelas.
 
+Necessario atualizar a variavel de ambiente `.env` encontrado na pasta raiz do projeto com a porta padrão a ser usada e a conexão com o Banco de Dados.
+
 E para iniciar o projeto:
 
 ```
