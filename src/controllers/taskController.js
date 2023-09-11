@@ -1,14 +1,13 @@
-const { request, response } = require('../app');
 const taskService = require('../services/taskService');
 const Status = require('../utils/Status');
 
 const createTask = async (request, response) => {
     const { title, description } = request.body;
 
-    const token = await taskService.createTask({ title, description, status: 'pendente' });
+    const task = await taskService.createTask({ title, description, status: 'pendente' });
 
-    if (token)
-        return response.status(201).json(token);
+    if (task)
+        return response.status(201).json(task);
 
     return response.status(422).json({ message: 'Erro ao cadastrar uma tarefa' });
 }
@@ -46,6 +45,9 @@ const getTaskByTitle = async (request, response) => {
 
 const getTaskByStatus = async (request, response) => {
     const { status } = request.params;
+
+    if (!Status[status])
+        return response.status(404).json({ message: 'Requisição requer um status valido' })
 
     const tasks = await taskService.getTaskByStatus(Status[status]);
 
