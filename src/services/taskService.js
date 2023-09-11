@@ -1,5 +1,3 @@
-const { generateToken } = require('../utils/JWT');
-
 const taskModel = require('../models/taskModel');
 
 const createTask = async (name) => {
@@ -7,9 +5,7 @@ const createTask = async (name) => {
 
     const task = await taskModel.getTaskById(insertId);
 
-    const token = generateToken(task);
-
-    return token;
+    return task;
 }
 
 const getAllTasks = async () => {
