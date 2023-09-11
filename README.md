@@ -50,7 +50,7 @@ Na requisição `POST` é necessário informar um JSON no seguinte formato:
 
 ```
 {
-  "email": "mail@mail.com",
+  "email": "email@email.com",
   "password": "senha123",
 }
 ```
