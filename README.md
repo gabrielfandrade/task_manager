@@ -43,7 +43,7 @@ npm start
 
 |Método |Funcionalidade                                                                    |URL                                           |
 |:-----:|:-----------------------------------------------------------------------------------:|:--------------------------------------------:|
-|`POST` |Efetua um login e retorna um `JWT` necessario para atualização e exclusão de tarefas |http://localhost:3000/login                   |
+|`POST` |Efetua um login e retorna um `Token` necessario para atualização e exclusão de tarefas |http://localhost:3000/login                   |
 
 
 Na requisição `POST` é necessário informar um JSON no seguinte formato:
@@ -98,11 +98,15 @@ Na requisição `PUT` que atualiza uma tarefa é necessário informar um JSON no
 }
 ```
 
+Também necessario um `Token` autorizado no Header da requisição (gerado ao efetuar um Login).
+
 #### Exclusão de Tarefas
 
 |Método |Funcionalidade                                                                    |URL                                           |
-|:-----:|:--------------------------------------------------------------------------------:|:--------------------------------------------:|
+|:------:|:-------------------------------------------------------------------------------:|:--------------------------------------------:|
 |`DELETE`|Exclui uma tarefa do banco de dados com base em seu `ID`                         |http://localhost:3000/task/:id                |
+
+Também necessario um `Token` autorizado no Header da requisição (gerado ao efetuar um Login).
 
 
 <br>
